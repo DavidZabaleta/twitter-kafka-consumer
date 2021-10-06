@@ -1,6 +1,20 @@
-##Spring Configuration
 server:
   port: 8081
 spring:
   application:
-    name: TwitterKafkaConsumer
+    name: "TwitterKafkaConsumer"
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: ${ELASTIC_ADDRESS:localhost}:${ELASTIC_PORT:9200}
+          username: ""
+          password: ""
+          connection-timeout: 5000
+  kafka:
+    consumer:
+      bootstrap-servers: "127.0.0.1:9092"
+      group-id: "twitter-kafka-consumer"
+      topics:
+        - "weather-topic"
+        - "twitter-topic"

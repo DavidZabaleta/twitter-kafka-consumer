@@ -1,10 +1,14 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+    implementation project(':async-event-handler')
+    implementation project(':reactive-web')
+    implementation project(':elasticsearchrepository')
     implementation project(':model')
     implementation project(':usecase')
     implementation 'org.springframework.boot:spring-boot-starter'
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 task explodedJar(type: Copy) {

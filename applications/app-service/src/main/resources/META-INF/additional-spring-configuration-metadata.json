@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "spring.kafka.consumer.topics",
+      "type": "java.lang.reflect.Array",
+      "description": "List of Kafka topics."
+    }
+  ]
+}
