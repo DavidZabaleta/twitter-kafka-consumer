@@ -1,19 +1,23 @@
 package co.berako.events.config;
 
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
-import java.util.List;
-import java.util.Properties;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG;
 
+@EnableKafka
 @Configuration
 public class KafkaConsumerConfig {
 
@@ -23,22 +27,23 @@ public class KafkaConsumerConfig {
     @Value(value = "${spring.kafka.consumer.group-id}")
     private String groupId;
 
-    @Value(value = "spring.kafka.consumer.topics")
-    private List<String> topics;
+    @Bean
+    public ConsumerFactory<String, String> consumerFactory() {
+        Map<String, Object> props = new HashMap<>();
+
+        props.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(GROUP_ID_CONFIG, groupId);
+        props.put(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+
+        return new DefaultKafkaConsumerFactory<>(props);
+    }
 
     @Bean
-    public <K, V> KafkaConsumer<K, V> kafkaConsumer() {
-        Properties properties = new Properties();
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
 
-        properties.setProperty(BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        properties.setProperty(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(GROUP_ID_CONFIG, groupId);
-
-        KafkaConsumer<K, V> kafkaConsumer = new KafkaConsumer<>(properties);
-
-        kafkaConsumer.subscribe(topics);
-
-        return kafkaConsumer;
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory());
+        return factory;
     }
 }

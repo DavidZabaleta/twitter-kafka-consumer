@@ -15,6 +15,3 @@ spring:
     consumer:
       bootstrap-servers: "127.0.0.1:9092"
       group-id: "twitter-kafka-consumer"
-      topics:
-        - "weather-topic"
-        - "twitter-topic"
