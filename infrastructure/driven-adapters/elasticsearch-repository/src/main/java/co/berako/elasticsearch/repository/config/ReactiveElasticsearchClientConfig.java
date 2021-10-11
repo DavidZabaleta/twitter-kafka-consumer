@@ -1,4 +1,4 @@
-package co.berako.elasticsearchrepository.config;
+package co.berako.elasticsearch.repository.config;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,9 +24,6 @@ public class ReactiveElasticsearchClientConfig extends AbstractReactiveElasticse
 
     @Value(value = "${spring.data.elasticsearch.client.reactive.password}")
     private String password;
-
-    @Value(value = "${spring.data.elasticsearch.client.reactive.connection-timeout}")
-    private Long timeout;
 
     @SneakyThrows
     @Override

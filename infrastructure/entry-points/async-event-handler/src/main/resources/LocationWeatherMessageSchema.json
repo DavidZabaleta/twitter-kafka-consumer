@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "title": "LocationWeatherDTO",
+  "description": "Location Weather Schema",
+  "additionalProperties": true,
+  "properties": {
+    "idLocationWeather": {
+      "type": "string"
+    },
+    "location": {
+      "$ref": "#/definitions/location"
+    },
+    "current": {
+      "$ref": "#/definitions/current"
+    },
+    "dataRetrievedAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "idLocationWeather",
+    "location",
+    "current",
+    "dataRetrievedAt"
+  ],
+  "definitions": {
+    "location": {
+      "type": "object",
+      "title": "LocationDTO",
+      "description": "Location Schema",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "city",
+        "region",
+        "country"
+      ]
+    },
+    "current": {
+      "type": "object",
+      "title": "CurrentDTO",
+      "description": "Current Schema",
+      "properties": {
+        "tempCelsius": {
+          "type": "string"
+        },
+        "humidity": {
+          "type": "string"
+        },
+        "feelsLikeCelsius": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tempCelsius",
+        "humidity",
+        "feelsLikeCelsius"
+      ]
+    }
+  }
+}
