@@ -14,15 +14,15 @@
     "current": {
       "$ref": "#/definitions/current"
     },
-    "dataRetrievedAt": {
-      "type": "string"
+    "user": {
+      "$ref": "#/definitions/user"
     }
   },
   "required": [
     "idLocationWeather",
     "location",
     "current",
-    "dataRetrievedAt"
+    "user"
   ],
   "definitions": {
     "location": {
@@ -65,6 +65,23 @@
         "tempCelsius",
         "humidity",
         "feelsLikeCelsius"
+      ]
+    },
+    "user": {
+      "type": "object",
+      "title": "UserDTO",
+      "description": "User Schema",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "timestamp"
       ]
     }
   }

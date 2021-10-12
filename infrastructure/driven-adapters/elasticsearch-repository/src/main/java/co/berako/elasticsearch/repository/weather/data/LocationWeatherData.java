@@ -6,8 +6,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.util.Date;
-
 @Data
 @Document(indexName = "weather")
 public class LocationWeatherData {
@@ -16,7 +14,7 @@ public class LocationWeatherData {
     @Field(type = FieldType.Object)
     private LocationData location;
     @Field(type = FieldType.Object)
+    private UserData user;
+    @Field(type = FieldType.Object)
     private CurrentData current;
-    @Field(type = FieldType.Date)
-    private Date dataRetrievedAt;
 }
