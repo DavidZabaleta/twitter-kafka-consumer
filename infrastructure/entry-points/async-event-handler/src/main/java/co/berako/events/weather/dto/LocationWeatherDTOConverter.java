@@ -3,6 +3,7 @@ package co.berako.events.weather.dto;
 import co.berako.model.weather.Current;
 import co.berako.model.weather.Location;
 import co.berako.model.weather.LocationWeather;
+import co.berako.model.weather.User;
 
 public interface LocationWeatherDTOConverter {
     static LocationWeather convertLocationWeatherDTOToDomain(LocationWeatherDTO locationWeatherDTO) {
@@ -10,7 +11,14 @@ public interface LocationWeatherDTOConverter {
                 .idLocationWeather(locationWeatherDTO.getIdLocationWeather())
                 .current(convertCurrentDTOToDomain(locationWeatherDTO.getCurrent()))
                 .location(convertLocationDTOToDomain(locationWeatherDTO.getLocation()))
-                .dataRetrievedAt(locationWeatherDTO.getDataRetrievedAt())
+                .user(convertUserDTOToDomain(locationWeatherDTO.getUser()))
+                .build();
+    }
+
+    static User convertUserDTOToDomain(UserDTO user) {
+        return User.builder()
+                .email(user.getEmail())
+                .timestamp(user.getTimestamp())
                 .build();
     }
 
